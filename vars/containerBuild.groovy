@@ -8,6 +8,6 @@ def call(input) {
             this.sh 'buildah login -u $USERNAME -p $PASSWORD registry.baloise.dev'
         }
         this.sh 'buildah bud -f $(pwd)/Dockerfile -t registry.baloise.dev/' + input.repository
-        this.sh 'buildah push registry.baloise.dev/test/buildah-test' + input.repository
+        this.sh 'buildah push registry.baloise.dev/' + input.repository
     }
 }
