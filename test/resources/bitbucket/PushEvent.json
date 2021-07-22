@@ -1,0 +1,77 @@
+{
+  "eventKey": "repo:refs_changed",
+  "date": "2020-01-01T01:00:000+0000",
+  "actor": {
+    "name": "X12345",
+    "emailAddress": "user@domain.tld",
+    "id": 15363,
+    "displayName": "User, Name",
+    "active": true,
+    "slug": "X12345",
+    "type": "NORMAL",
+    "links": {
+      "self": [
+        {
+          "href": "https://bitbucket.baloise.dev/users/X12345"
+        }
+      ]
+    }
+  },
+  "repository": {
+    "slug": "example-team-non-prod",
+    "id": 3279,
+    "name": "example-team-non-prod",
+    "description": "Non-Prod Applications Example Team",
+    "hierarchyId": "c52093cbacf28abd089f",
+    "scmId": "git",
+    "state": "AVAILABLE",
+    "statusMessage": "Available",
+    "forkable": true,
+    "project": {
+      "key": "DPL",
+      "id": 916,
+      "name": "deployments",
+      "description": "Team Application Deployment Config Repositorys for OpenShift",
+      "public": true,
+      "type": "NORMAL",
+      "links": {
+        "self": [
+          {
+            "href": "https://bitbucket.baloise.dev/projects/DPL"
+          }
+        ]
+      }
+    },
+    "public": true,
+    "links": {
+      "clone": [
+        {
+          "href": "ssh://git@bitbucket.baloise.dev/dpl/example-team-non-prod.git",
+          "name": "ssh"
+        },
+        {
+          "href": "https://bitbucket.baloise.dev/scm/dpl/example-team-non-prod.git",
+          "name": "http"
+        }
+      ],
+      "self": [
+        {
+          "href": "https://bitbucket.baloise.dev/projects/DPL/repos/example-team-non-prod/browse"
+        }
+      ]
+    }
+  },
+  "changes": [
+    {
+      "ref": {
+        "id": "refs/heads/master",
+        "displayId": "master",
+        "type": "BRANCH"
+      },
+      "refId": "refs/heads/master",
+      "fromHash": "3fd917bbe8172eaf099622a3c2f8bdfcbc9d53ea",
+      "toHash": "5f77703615318db6163810b993f3b355ea297cad",
+      "type": "UPDATE"
+    }
+  ]
+}

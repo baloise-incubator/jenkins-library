@@ -1,0 +1,158 @@
+{
+  "eventKey": "pr:opened",
+  "date": "2020-05-11T11:49:31+0200",
+  "actor": {
+    "name": "X54321",
+    "emailAddress": "other.user@domain.tld",
+    "id": 4362,
+    "displayName": "Other, User",
+    "active": true,
+    "slug": "X54321",
+    "type": "NORMAL",
+    "links": {
+      "self": [
+        {
+          "href": "https://bitbucket.baloise.dev/users/X54321"
+        }
+      ]
+    }
+  },
+  "pullRequest": {
+    "id": 12,
+    "version": 0,
+    "title": "Feat/cool",
+    "description": "* [TICKET-123]",
+    "state": "OPEN",
+    "open": true,
+    "closed": false,
+    "createdDate": 1589190571422,
+    "updatedDate": 1589190571422,
+    "fromRef": {
+      "id": "refs/heads/Feat/cool",
+      "displayId": "Feat/cool",
+      "latestCommit": "e8e99se76a0fb6a2054a23fe12dfed5f2bb2b817",
+      "repository": {
+        "slug": "demo-app",
+        "id": 3393,
+        "name": "demo-app",
+        "hierarchyId": "63c90f15f50b52c76727",
+        "scmId": "git",
+        "state": "AVAILABLE",
+        "statusMessage": "Available",
+        "forkable": true,
+        "project": {
+          "key": "demo",
+          "id": 906,
+          "name": "demo",
+          "description": "BExample",
+          "public": false,
+          "type": "NORMAL",
+          "links": {
+            "self": [
+              {
+                "href": "https://bitbucket.baloise.dev/projects/demo"
+              }
+            ]
+          }
+        },
+        "public": true,
+        "links": {
+          "clone": [
+            {
+              "href": "https://bitbucket.baloise.dev/scm/demo/demo-app.git",
+              "name": "http"
+            },
+            {
+              "href": "ssh://git@bitbucket.baloise.dev/demo/demo-app.git",
+              "name": "ssh"
+            }
+          ],
+          "self": [
+            {
+              "href": "https://bitbucket.baloise.dev/projects/demo/repos/demo-app/browse"
+            }
+          ]
+        }
+      }
+    },
+    "toRef": {
+      "id": "refs/heads/master",
+      "displayId": "master",
+      "latestCommit": "4f89e8137961b855ds55739e92e43bdbc5e19218",
+      "repository": {
+        "slug": "demo-app",
+        "id": 3393,
+        "name": "demo-app",
+        "hierarchyId": "63c90f15f50b52c72727",
+        "scmId": "git",
+        "state": "AVAILABLE",
+        "statusMessage": "Available",
+        "forkable": true,
+        "project": {
+          "key": "demo",
+          "id": 906,
+          "name": "demo",
+          "description": "Some text",
+          "public": false,
+          "type": "NORMAL",
+          "links": {
+            "self": [
+              {
+                "href": "https://bitbucket.baloise.dev/projects/demo"
+              }
+            ]
+          }
+        },
+        "public": true,
+        "links": {
+          "clone": [
+            {
+              "href": "https://bitbucket.baloise.dev/scm/demo/demo-app.git",
+              "name": "http"
+            },
+            {
+              "href": "ssh://git@bitbucket.baloise.dev/demo/demo-app.git",
+              "name": "ssh"
+            }
+          ],
+          "self": [
+            {
+              "href": "https://bitbucket.baloise.dev/projects/demo/repos/demo-app/browse"
+            }
+          ]
+        }
+      }
+    },
+    "locked": false,
+    "author": {
+      "user": {
+        "name": "X54321",
+        "emailAddress": "other.user@domain.tld",
+        "id": 4362,
+        "displayName": "Other, User",
+        "active": true,
+        "slug": "X54321",
+        "type": "NORMAL",
+        "links": {
+          "self": [
+            {
+              "href": "https://bitbucket.baloise.dev/users/X54321"
+            }
+          ]
+        }
+      },
+      "role": "AUTHOR",
+      "approved": false,
+      "status": "UNAPPROVED"
+    },
+    "reviewers": [],
+    "participants": [],
+    "links": {
+      "self": [
+        {
+          "href": "https://bitbucket.baloise.dev/projects/demo/repos/demo-app/pull-requests/12"
+        }
+      ]
+    }
+  }
+}
