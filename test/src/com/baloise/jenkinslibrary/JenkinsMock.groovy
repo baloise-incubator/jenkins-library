@@ -13,6 +13,7 @@ class JenkinsMock {
         jenkins.withEnv = { array, func -> func() }
         jenkins.withVault = { array, func -> func() }
         jenkins.container = { array, func -> func() }
+        jenkins.node = { array, func -> func() }
         jenkins.tool = { name -> return "/opt/maven" }
         jenkins.pwd = { -> return "/var/lib/jenkins/workspace/folder/job" }
         jenkins.scm = null

@@ -27,8 +27,10 @@ class GitopsService implements GitopsApi, Serializable {
     private void performGitopsCommand(String command, String args) {
         def gitVaultConfig = [[path: variables.VAULT_GIT_CREDENTIALS, secretValues: [[envVar: 'GITOPSCLI_USERNAME', vaultKey: 'username'], [envVar: 'GITOPSCLI_PASSWORD', vaultKey: 'password']]]]
         steps.withVault(vaultSecrets: gitVaultConfig) {
-            steps.container(name: 'gitopscli') {
-                return steps.sh("gitopscli $command $gitProviderArg $args")
+            steps.node("gitopscli") {
+                steps.container(name: 'gitopscli') {
+                    return steps.sh("gitopscli $command $gitProviderArg $args")
+                }
             }
         }
     }
@@ -74,10 +76,10 @@ $gitEmailArg \
             steps.sh("rm -f $previewInfoFile")
         }
         return [
-            "id": previewInfo.get("previewId"),
-            "idHash": previewInfo.get("previewIdHash"),
-            "route": previewInfo.get("routeHost"),
-            "namespace": previewInfo.get("namespace"),
+                "id"       : previewInfo.get("previewId"),
+                "idHash"   : previewInfo.get("previewIdHash"),
+                "route"    : previewInfo.get("routeHost"),
+                "namespace": previewInfo.get("namespace"),
         ]
     }
 
@@ -107,7 +109,7 @@ $gitEmailArg \
             case "bitbucket":
                 return new BitbucketWebhookPushEvent(payload);
             default:
-                throw new IllegalStateException("GIT_PROVIDER '"+variables.GIT_PROVIDER+"' is invalid. Must be 'bitbucket'")
+                throw new IllegalStateException("GIT_PROVIDER '" + variables.GIT_PROVIDER + "' is invalid. Must be 'bitbucket'")
         }
     }
 
@@ -116,7 +118,7 @@ $gitEmailArg \
             case "bitbucket":
                 return new BitbucketWebhookPullRequestEvent(payload);
             default:
-                throw new IllegalStateException("GIT_PROVIDER '"+variables.GIT_PROVIDER+"' is invalid. Must be 'bitbucket'")
+                throw new IllegalStateException("GIT_PROVIDER '" + variables.GIT_PROVIDER + "' is invalid. Must be 'bitbucket'")
         }
     }
 
