@@ -108,6 +108,8 @@ $gitEmailArg \
         switch (variables.GIT_PROVIDER) {
             case "bitbucket":
                 return new BitbucketWebhookPushEvent(payload);
+            case "github":
+                return new GithubWebhookPushEvent(payload);
             default:
                 throw new IllegalStateException("GIT_PROVIDER '" + variables.GIT_PROVIDER + "' is invalid. Must be 'bitbucket'")
         }
@@ -117,8 +119,10 @@ $gitEmailArg \
         switch (variables.GIT_PROVIDER) {
             case "bitbucket":
                 return new BitbucketWebhookPullRequestEvent(payload);
+            case "github":
+                return new GithubWebhookPullRequestEvent(payload);
             default:
-                throw new IllegalStateException("GIT_PROVIDER '" + variables.GIT_PROVIDER + "' is invalid. Must be 'bitbucket'")
+                throw new IllegalStateException("GIT_PROVIDER '" + variables.GIT_PROVIDER + "' is invalid. Must be 'bitbucket|github'")
         }
     }
 
