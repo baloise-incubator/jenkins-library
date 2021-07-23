@@ -28,9 +28,7 @@ class GitopsService implements GitopsApi, Serializable {
         steps.container(name: 'gitopscli') {
             def gitVaultConfig = [[path: variables.VAULT_GIT_CREDENTIALS, secretValues: [[envVar: 'GITOPSCLI_USERNAME', vaultKey: 'username'], [envVar: 'GITOPSCLI_PASSWORD', vaultKey: 'password']]]]
             steps.withVault(vaultSecrets: gitVaultConfig) {
-                steps.sh 'echo $GITOPSCLI_USERNAME | base64'
-                steps.sh 'echo $GITOPSCLI_PASSWORD'
-                return steps.sh("gitopscli $command $gitProviderArg $args")
+                return steps.sh("gitopscli $command --username $GITOPSCLI_USERNAME --password $GITOPSCLI_PASSWORD $gitProviderArg $args")
             }
         }
     }
