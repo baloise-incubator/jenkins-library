@@ -17,7 +17,7 @@ class GithubWebhookPullRequestEvent implements WebhookPullRequestEvent {
     }
 
     String prId() {
-        return payload["issue"]["number"]
+        return payload["number"]
     }
 
     String branch() {
