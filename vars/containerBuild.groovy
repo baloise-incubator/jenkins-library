@@ -1,14 +1,11 @@
+import com.baloise.jenkinslibrary.common.Registry
+import com.baloise.jenkinslibrary.container.ContainerApi
 
 def call(input) {
     if (!input) {
         input = [:]
     }
-    this.container(name: 'buildah') {
-        this.withVault(configuration: [timeout: 60, vaultCredentialId: 'vault_token', vaultUrl: 'http://vault:8200'], vaultSecrets: [[path: '/secret/registry', secretValues: [[envVar: 'USERNAME', vaultKey: 'username'], [envVar: 'PASSWORD', vaultKey: 'password']]]]) {
-            this.sh 'buildah login -u $USERNAME -p $PASSWORD registry.baloise.dev'
-        }
-        def imageName = 'registry.baloise.dev/' + input.repository
-        this.sh 'buildah bud -f $(pwd)/Dockerfile -t ' + imageName
-        this.sh 'buildah push ' + imageName
-    }
+    Registry registry = new Registry(this)
+    ContainerApi container = registry.getApi(ContainerApi.class)
+    container.build(input.registry, input.repository, input.tags, input.dockerFileName, input.path, input.cacheLayers, input.buildArgs, input.pullAlways)
 }

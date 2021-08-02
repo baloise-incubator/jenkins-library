@@ -5,6 +5,8 @@ import com.baloise.jenkinslibrary.common.logging.LoggingApi
 import com.baloise.jenkinslibrary.common.logging.internal.JenkinsConsoleLogger
 import com.baloise.jenkinslibrary.common.rest.RestClientApi
 import com.baloise.jenkinslibrary.common.rest.internal.BasicRestClient
+import com.baloise.jenkinslibrary.container.ContainerApi
+import com.baloise.jenkinslibrary.container.internal.BuildahContainerEngine
 import com.baloise.jenkinslibrary.gitops.GitopsApi
 import com.baloise.jenkinslibrary.gitops.internal.GitopsService
 import com.cloudbees.groovy.cps.NonCPS
@@ -22,6 +24,7 @@ class Registry {
         registerApi(LoggingApi.class, new JenkinsConsoleLogger(this))
         registerApi(RestClientApi.class, new BasicRestClient(this))
         registerApi(GitopsApi.class, new GitopsService(this))
+        registerApi(ContainerApi.class, new BuildahContainerEngine(this))
     }
 
     @NonCPS
