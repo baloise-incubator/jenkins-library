@@ -3,6 +3,7 @@ package com.baloise.jenkinslibrary.container.internal
 import com.baloise.jenkinslibrary.common.Registry
 import com.baloise.jenkinslibrary.common.Variables
 import com.baloise.jenkinslibrary.container.ContainerApi
+import groovy.json.JsonSlurper
 
 class BuildahContainerEngine implements ContainerApi, Serializable {
 
@@ -51,9 +52,13 @@ class BuildahContainerEngine implements ContainerApi, Serializable {
             tagString += " -t ${registry}/${repository}:${it}"
         }
         steps.container(name: 'buildah') {
-            steps.withVault(vaultSecrets: [[path: 'secret/data/registry.baloise.dev/username', secretValues: [[envVar: "USERNAME", vaultKey: 'data']]],
-                                           [path: 'secret/data/registry.baloise.dev/password', secretValues: [[envVar: "PASSWORD", vaultKey: 'data']]]]) {
-                steps.sh "buildah login -u '$USERNAME' -p '$PASSWORD' ${registry}"
+            steps.withVault(vaultSecrets: [[path: 'secret/data/registry.baloise.dev/username', secretValues: [[envVar: "registryUsername", vaultKey: 'data']]],
+                                           [path: 'secret/data/registry.baloise.dev/password', secretValues: [[envVar: "registryPassword", vaultKey: 'data']]]]) {
+                def username = new JsonSlurper().parseText(steps.env.registryUsername)["registry.baloise.dev/username"]
+                def password = new JsonSlurper().parseText(steps.env.registryPassword)["registry.baloise.dev/password"]
+                steps.withEnv(["REGISTRY_USERNAME=${username}", "REGISTRY_PASSWORD=${password}"]) {
+                    steps.sh "buildah login -u '$USERNAME' -p '$PASSWORD' ${registry}"
+                }
             }
             steps.sh "buildah bud --layers=${cacheLayers} --pull-always=${pullAlways} -f ${dockerFileName} ${tagString} ${path} ${buildArgString}"
             tags.each {

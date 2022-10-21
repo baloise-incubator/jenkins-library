@@ -38,6 +38,9 @@ class JenkinsMock {
         jenkins.env.getProperty = { name -> return name }
         jenkins.env.gitUsername = "{\"github/username\":\"baloise-incubator\"}"
         jenkins.env.gitToken = "{\"github/token\":\"token\"}"
+        jenkins.env.registryUsername = "{\"registry.baloise.dev/username\":\"user\"}"
+        jenkins.env.registryPassword = "{\"registry.baloise.dev/password\":\"password\"}"
+
         jenkins.currentBuild = [:]
 
         jenkins.USERNAME = "mockedUsername"
