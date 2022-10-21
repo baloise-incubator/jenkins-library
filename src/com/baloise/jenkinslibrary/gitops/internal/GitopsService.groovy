@@ -26,9 +26,9 @@ class GitopsService implements GitopsApi, Serializable {
 
     private void performGitopsCommand(String command, String args) {
         steps.container(name: 'gitopscli') {
-            def gitVaultConfig = [[path: variables.VAULT_GIT_CREDENTIALS, secretValues: [[envVar: 'GITOPSCLI_USERNAME', vaultKey: 'username'], [envVar: 'GITOPSCLI_PASSWORD', vaultKey: 'password']]]]
-            steps.withVault(vaultSecrets: gitVaultConfig) {
-                return steps.sh("gitopscli $command --username ${steps.GITOPSCLI_USERNAME} --password ${steps.GITOPSCLI_PASSWORD} $gitProviderArg $args")
+            steps.withVault(vaultSecrets: [[path: 'secret/data/github/username', secretValues: [[envVar: "USERNAME", vaultKey: 'data']]],
+                                           [path: 'secret/data/github/token', secretValues: [[envVar: "TOKEN", vaultKey: 'data']]]]) {
+                return steps.sh("gitopscli ${command} --username \"\$USERNAME\" --password \"\$PASSWORD\" ${gitProviderArg} ${args}")
             }
         }
     }
@@ -119,7 +119,7 @@ $gitEmailArg \
                 return new BitbucketWebhookPullRequestEvent(payload);
             case "github":
                 def isIssueComment = payload["issue"]
-                if(isIssueComment) {
+                if (isIssueComment) {
                     return new GithubWebhookPullRequestCommentEvent(payload);
                 } else {
                     return new GithubWebhookPullRequestEvent(payload);

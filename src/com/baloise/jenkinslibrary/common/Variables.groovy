@@ -9,7 +9,6 @@ class Variables {
     String GIT_PROVIDER
     String TECHNICAL_GIT_USER = "Baloise Incubator"
     String TECHNICAL_GIT_EMAIL = "incubator@baloise.dev"
-    String VAULT_GIT_CREDENTIALS = "secret/git/credentials"
     String VAULT_CREDENTIAL_ID = "vault_token"
     String VAULT_URL = "http://vault:8200"
 

@@ -51,10 +51,9 @@ class BuildahContainerEngine implements ContainerApi, Serializable {
             tagString += " -t ${registry}/${repository}:${it}"
         }
         steps.container(name: 'buildah') {
-            steps.withVault(configuration: [timeout: 60, vaultCredentialId: "${variables.VAULT_CREDENTIAL_ID}", vaultUrl: "${variables.VAULT_URL}"], vaultSecrets: [[path: '/secret/registry', secretValues: [[envVar: 'USERNAME', vaultKey: 'username'], [envVar: 'PASSWORD', vaultKey: 'password']]]]) {
-                def user = '$USERNAME'
-                def pw = '$PASSWORD'
-                steps.sh "buildah login -u ${user} -p ${pw} ${registry}"
+            steps.withVault(vaultSecrets: [[path: 'secret/data/registry.baloise.dev/username', secretValues: [[envVar: "USERNAME", vaultKey: 'data']]],
+                                           [path: 'secret/data/registry.baloise.dev/password', secretValues: [[envVar: "PASSWORD", vaultKey: 'data']]]]) {
+                steps.sh "buildah login -u '$USERNAME' -p '$PASSWORD' ${registry}"
             }
             steps.sh "buildah bud --layers=${cacheLayers} --pull-always=${pullAlways} -f ${dockerFileName} ${tagString} ${path} ${buildArgString}"
             tags.each {
