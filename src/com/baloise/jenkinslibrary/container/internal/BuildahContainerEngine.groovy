@@ -57,7 +57,7 @@ class BuildahContainerEngine implements ContainerApi, Serializable {
                 def username = new JsonSlurper().parseText(steps.env.registryUsername)["registry.baloise.dev/username"]
                 def password = new JsonSlurper().parseText(steps.env.registryPassword)["registry.baloise.dev/password"]
                 steps.withEnv(["REGISTRY_USERNAME=${username}", "REGISTRY_PASSWORD=${password}"]) {
-                    steps.sh "buildah login -u '$USERNAME' -p '$PASSWORD' ${registry}"
+                    steps.sh "buildah login -u '$REGISTRY_USERNAME' -p '$REGISTRY_PASSWORD' ${registry}"
                 }
             }
             steps.sh "buildah bud --layers=${cacheLayers} --pull-always=${pullAlways} -f ${dockerFileName} ${tagString} ${path} ${buildArgString}"
