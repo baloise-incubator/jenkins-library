@@ -33,7 +33,7 @@ class GitopsService implements GitopsApi, Serializable {
                 def username = new JsonSlurper().parseText(steps.env.gitUsername)["github/username"]
                 def password = new JsonSlurper().parseText(steps.env.gitToken)["github/token"]
                 steps.withEnv(["GIT_USERNAME=${username}", "GIT_TOKEN=${password}"]) {
-                    def gitopsCommand = 'gitopscli ' + command + ' --username $GIT_USERNAME --password $GIT_TOKEN ' + gitProviderArg + ' ' + args
+                    def gitopsCommand = 'set +x; gitopscli ' + command + ' --username $GIT_USERNAME --password $GIT_TOKEN ' + gitProviderArg + ' ' + args
                     return steps.sh(gitopsCommand)
                 }
             }
