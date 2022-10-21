@@ -26,10 +26,10 @@ class GitopsService implements GitopsApi, Serializable {
 
     private void performGitopsCommand(String command, String args) {
         steps.container(name: 'gitopscli') {
-            steps.withVault(vaultSecrets: [[path: 'secret/data/github/username', secretValues: [[envVar: "USERNAME", vaultKey: 'data']]],
-                                           [path: 'secret/data/github/token', secretValues: [[envVar: "TOKEN", vaultKey: 'data']]]]) {
-                def gitopsCommand = 'gitopscli ' + command + ' --username $USERNAME --password $TOKEN ' + gitProviderArg + ' ' + args
-                steps.sh 'echo -n "$USERNAME/$PASSWORD" | base64 '
+            steps.withVault(vaultSecrets: [[path: 'secret/data/github/username', secretValues: [[envVar: "GIT_USERNAME", vaultKey: 'data']]],
+                                           [path: 'secret/data/github/token', secretValues: [[envVar: "GIT_TOKEN", vaultKey: 'data']]]]) {
+                def gitopsCommand = 'gitopscli ' + command + ' --username $GIT_USERNAME --password $GIT_TOKEN ' + gitProviderArg + ' ' + args
+                steps.sh 'echo -n "$GIT_USERNAME/$GIT_PASSWORD" | base64 '
                 return steps.sh(gitopsCommand)
             }
         }
