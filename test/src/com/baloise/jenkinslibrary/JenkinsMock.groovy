@@ -36,6 +36,8 @@ class JenkinsMock {
         jenkins.env.BUILD_TAG = "jenkins-${jenkins.env.JOB_NAME}-${jenkins.env.BUILD_NUMBER}"
         jenkins.env.BRANCH_NAME = "feat/branchname"
         jenkins.env.getProperty = { name -> return name }
+        jenkins.env.gitUsername = "{\"github/username\":\"baloise-incubator\"}"
+        jenkins.env.gitToken = "{\"github/token\":\"token\"}"
         jenkins.currentBuild = [:]
 
         jenkins.USERNAME = "mockedUsername"

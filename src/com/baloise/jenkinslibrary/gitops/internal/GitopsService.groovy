@@ -4,6 +4,7 @@ import com.baloise.jenkinslibrary.common.Registry
 import com.baloise.jenkinslibrary.common.Variables
 import com.baloise.jenkinslibrary.gitops.GitopsApi
 import groovy.json.JsonOutput
+import groovy.json.JsonSlurper
 
 class GitopsService implements GitopsApi, Serializable {
 
@@ -26,11 +27,15 @@ class GitopsService implements GitopsApi, Serializable {
 
     private void performGitopsCommand(String command, String args) {
         steps.container(name: 'gitopscli') {
-            steps.withVault(vaultSecrets: [[path: 'secret/data/github/username', secretValues: [[envVar: "GIT_USERNAME", vaultKey: 'data']]],
-                                           [path: 'secret/data/github/token', secretValues: [[envVar: "GIT_TOKEN", vaultKey: 'data']]]]) {
-                def gitopsCommand = 'gitopscli ' + command + ' --username $GIT_USERNAME --password $GIT_TOKEN ' + gitProviderArg + ' ' + args
-                steps.sh 'echo -n "$GIT_USERNAME/$GIT_PASSWORD" | base64 '
-                return steps.sh(gitopsCommand)
+            steps.withVault(vaultSecrets: [[path: 'secret/data/github/username', secretValues: [[envVar: "gitUsername", vaultKey: 'data']]],
+                                           [path: 'secret/data/github/token', secretValues: [[envVar: "gitToken", vaultKey: 'data']]]]) {
+
+                def username = new JsonSlurper().parseText(steps.env.gitUsername)["github/username"]
+                def password = new JsonSlurper().parseText(steps.env.gitToken)["github/password"]
+                steps.withEnv(["GIT_USERNAME=${username}", "GIT_TOKEN=${password}"]) {
+                    def gitopsCommand = 'gitopscli ' + command + ' --username $GIT_USERNAME --password $GIT_TOKEN ' + gitProviderArg + ' ' + args
+                    return steps.sh(gitopsCommand)
+                }
             }
         }
     }
