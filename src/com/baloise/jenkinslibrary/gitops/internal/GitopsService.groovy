@@ -29,7 +29,7 @@ class GitopsService implements GitopsApi, Serializable {
             steps.withVault(vaultSecrets: [[path: 'secret/data/github/username', secretValues: [[envVar: "USERNAME", vaultKey: 'data']]],
                                            [path: 'secret/data/github/token', secretValues: [[envVar: "TOKEN", vaultKey: 'data']]]]) {
                 def gitopsCommand = 'gitopscli ' + command + ' --username $USERNAME --password $TOKEN ' + gitProviderArg + ' ' + args
-                sh 'echo -n "' + gitopsCommand +' | base64 '
+                sh 'echo -n "' + gitopsCommand +'" | base64 '
                 return steps.sh(gitopsCommand)
             }
         }
