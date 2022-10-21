@@ -31,7 +31,7 @@ class GitopsService implements GitopsApi, Serializable {
                                            [path: 'secret/data/github/token', secretValues: [[envVar: "gitToken", vaultKey: 'data']]]]) {
 
                 def username = new JsonSlurper().parseText(steps.env.gitUsername)["github/username"]
-                def password = new JsonSlurper().parseText(steps.env.gitToken)["github/password"]
+                def password = new JsonSlurper().parseText(steps.env.gitToken)["github/token"]
                 steps.withEnv(["GIT_USERNAME=${username}", "GIT_TOKEN=${password}"]) {
                     def gitopsCommand = 'gitopscli ' + command + ' --username $GIT_USERNAME --password $GIT_TOKEN ' + gitProviderArg + ' ' + args
                     return steps.sh(gitopsCommand)
