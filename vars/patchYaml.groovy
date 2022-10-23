@@ -7,7 +7,7 @@ def call(input) {
     }
     Registry registry = new Registry(this)
     GitopsApi gitops = registry.getApi(GitopsApi.class)
-    gitops.deploy(input.stage, input.organisation, input.repositoryName,
+    gitops.deploy(input.organisation, input.repositoryName,
             input.file, input.yamlPatches, input.singleCommit,
-            input.createPullRequest, input.commitMessage, input.jira)
+            input.createPullRequest, input.commitMessage)
 }
