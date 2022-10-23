@@ -152,7 +152,7 @@ $gitEmailArg \
 
     void deploy(String organisation, String repositoryName, String file, yamlPatches, Boolean singleCommit, Boolean createPullRequest, String commitMessage) {
         if (organisation == null) {
-            organisation = "DPL"
+            organisation = "baloise-incubator"
         }
 
         if (createPullRequest == null) {

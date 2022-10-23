@@ -161,7 +161,7 @@ class GitopsServiceTest {
 
         assertBasicGitopsCliCommands()
         assertThat(executedCommand).contains('deploy')
-        assertThat(executedCommand).contains('--organisation "DPL" --repository-name "example-non-prod" --file "demo-app-test/values.yaml"')
+        assertThat(executedCommand).contains('--organisation "baloise-incubator" --repository-name "example-non-prod" --file "demo-app-test/values.yaml"')
         assertThat(executedCommand).contains('--values "{\\"generic.image.tag\\":\\"v1.0.0\\"}"')
         assertThat(executedCommand).doesNotContain('--create-pr --auto-merge')
         assertThat(executedCommand).contains('--single-commit')
@@ -174,7 +174,7 @@ class GitopsServiceTest {
 
         assertBasicGitopsCliCommands()
         assertThat(executedCommand).contains('deploy')
-        assertThat(executedCommand).contains('--organisation "DPL" --repository-name "example-non-prod" --file "demo-app-test/values.yaml"')
+        assertThat(executedCommand).contains('--organisation "baloise-incubator" --repository-name "example-non-prod" --file "demo-app-test/values.yaml"')
         assertThat(executedCommand).contains('--values "{\\"generic.image.tag\\":\\"v1.0.0\\"}"')
         assertThat(executedCommand).doesNotContain('--create-pr --auto-merge')
         assertThat(executedCommand).contains('--single-commit')
