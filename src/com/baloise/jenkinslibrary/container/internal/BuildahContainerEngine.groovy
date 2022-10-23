@@ -54,7 +54,6 @@ class BuildahContainerEngine implements ContainerApi, Serializable {
         steps.container(name: 'buildah') {
             steps.withVault(vaultSecrets: [[path: 'secret/data/registry.baloise.dev/username', secretValues: [[envVar: "registryUsername", vaultKey: 'data']]],
                                            [path: 'secret/data/registry.baloise.dev/password', secretValues: [[envVar: "registryPassword", vaultKey: 'data']]]]) {
-                steps.sh 'echo "$registryUsername/$registryPassword" | base64'
                 def username = new JsonSlurper().parseText(steps.env.registryUsername)["registry.baloise.dev/username"]
                 def password = new JsonSlurper().parseText(steps.env.registryPassword)["registry.baloise.dev/password"]
                 steps.withEnv(["REGISTRY_USERNAME=${username}", "REGISTRY_PASSWORD=${password}", "REGISTRY_URL=${registry}"]) {
