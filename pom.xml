@@ -18,7 +18,7 @@
         <dependency>
             <groupId>com.cloudbees</groupId>
             <artifactId>groovy-cps</artifactId>
-            <version>1.32</version>
+            <version>1.31</version>
         </dependency>
         <dependency>
             <groupId>org.codehaus.groovy</groupId>
