@@ -40,14 +40,14 @@ class GitopsService implements GitopsApi, Serializable {
         }
     }
     private void performBdopCliCommand(String command, String args) {
-        steps.container(name: 'bdop-cli') {
+        steps.container(name: 'gitopscli') {
             steps.withVault(vaultSecrets: [[path: 'secret/data/github/username', secretValues: [[envVar: "gitUsername", vaultKey: 'data']]],
                                            [path: 'secret/data/github/token', secretValues: [[envVar: "gitToken", vaultKey: 'data']]]]) {
 
                 def username = new JsonSlurper().parseText(steps.env.gitUsername)["github/username"]
                 def password = new JsonSlurper().parseText(steps.env.gitToken)["github/token"]
                 steps.withEnv(["GIT_USERNAME=${username}", "GIT_TOKEN=${password}"]) {
-                    def gitopsCommand = 'set +x; bdop-cli ' + command + ' --username $GIT_USERNAME --password $GIT_TOKEN ' + gitProviderArg + ' ' + args
+                    def gitopsCommand = 'set +x; gitopscli ' + command + ' --username $GIT_USERNAME --password $GIT_TOKEN ' + gitProviderArg + ' ' + args
                     return steps.sh(gitopsCommand)
                 }
             }
